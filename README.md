@@ -5,6 +5,8 @@ https://shape-painter.numb86.net/
 
 ![Deploy to S3](https://github.com/numb86/shape-painter/workflows/Deploy%20to%20S3/badge.svg)
 
+![sample gif](./sample.gif)
+
 ## Motivation
 
 The purpose is to easily create shapes on the browser.  
