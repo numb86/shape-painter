@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EdgeOfTree The content passed in props is reflected in the style 1`] = `
+.c0 {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  width: 100px;
+  height: 93px;
+  background-image: linear-gradient(to right,rgba(255,255,255,0) 49.2%,skyblue 50.2%,skyblue 49.8%,rgba(255,255,255,0) 50.8%);
+}
+
+<div
+  class="c0"
+  color="skyblue"
+  width="100"
+/>
+`;
+
+exports[`EdgeOfTree The content passed in props is reflected in the style 2`] = `
+.c0 {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  width: 100px;
+  height: 93px;
+  background-image: linear-gradient(to left top,rgba(255,255,255,0) 49%,skyblue 50%,skyblue 50%,rgba(255,255,255,0) 51%);
+}
+
+<div
+  class="c0"
+  color="skyblue"
+  width="100"
+/>
+`;
+
+exports[`EdgeOfTree The content passed in props is reflected in the style 3`] = `
+.c0 {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  width: 100px;
+  height: 93px;
+  background-image: linear-gradient(to right top,rgba(255,255,255,0) 49%,skyblue 50%,skyblue 50%,rgba(255,255,255,0) 51%);
+}
+
+<div
+  class="c0"
+  color="skyblue"
+  width="100"
+/>
+`;

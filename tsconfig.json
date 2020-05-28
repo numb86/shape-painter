@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@src/*": ["./*"],
+      "@shared/*": ["./shared/*"],
+      "@svg/*": ["./svg/*"],
+      "@tree/*": ["./tree/*"],
+      "@clientServer/*": ["./clientServer/*"]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
