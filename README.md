@@ -3,6 +3,7 @@
 https://shape-painter.numb86.net/
 </div>
 
+![Deploy to S3](https://github.com/numb86/shape-painter/workflows/Deploy%20to%20S3/badge.svg)
 
 ## Motivation
 
