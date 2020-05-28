@@ -29,19 +29,19 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Library install
-        - run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile
 
       - name: Test
-        - run: yarn test
+        run: yarn test
 
       - name: Lint
-        - run: yarn lint
+        run: yarn lint
 
       - name: Type Check
-        - run: yarn type-check
+        run: yarn type-check
 
       - name: Build
-        - run: yarn build
+        run: yarn build
 
       - run: cp ./src/404.html ./dist/404.html
       - run: mkdir -p dist/images/ && cp -r ./src/images/* dist/images/
@@ -56,6 +56,6 @@ jobs:
         run: |
           aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
 
-      - run:
-          name:  Cache Clear
-          command: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
+      - name:  Cache Clear
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
