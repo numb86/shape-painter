@@ -25,11 +25,15 @@ const EdgeStyledComponent = styled.div<Props>((props: Props) => {
   if (linerGradient !== 'right') {
     startEdgePoint = 49;
     endEdgePoint = 51;
+    if (width < 5) {
+      startEdgePoint = 40;
+      endEdgePoint = 60;
+    }
   }
 
-  if (width < 5) {
-    startEdgePoint = 40;
-    endEdgePoint = 60;
+  if (linerGradient === 'right' && width <= 70) {
+    startEdgePoint = 48.6;
+    endEdgePoint = 51.4;
   }
 
   let backgroundColor = '';
