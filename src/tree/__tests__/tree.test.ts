@@ -338,7 +338,7 @@ describe('tree', () => {
       it('The number of property is correct', () => {
         assert.strictEqual(
           Object.keys(result[0]).length,
-          Object.keys(simpleTree).length - 1 + 3 // subtract `children`, and add `parentNodeId`, `width`, `height`
+          Object.keys(simpleTree).length - 1 + 4 // subtract `children`, and add `parentNodeId`, `width`, `height`, `childNodeCount`
         );
       });
 
@@ -383,6 +383,7 @@ describe('tree', () => {
         parentNodeId: null,
         width: 100,
         height: 30,
+        childNodeCount: 0,
       };
       const tree = {
         ...node,
