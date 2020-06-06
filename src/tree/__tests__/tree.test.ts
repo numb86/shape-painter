@@ -20,6 +20,7 @@ import {
   generateNodeArrayFromTree,
   addNode,
   removeNode,
+  rotateChildren,
   Tree,
 } from '../tree';
 
@@ -485,6 +486,86 @@ describe('tree', () => {
 
       try {
         removeNode(complexTree, 99);
+      } catch {
+        isError = true;
+      }
+
+      assert(isError);
+    });
+  });
+
+  describe('rotateChildren', () => {
+    const layout = {
+      top: 0,
+      left: 0,
+    };
+    const styleValue = {
+      isOverrideByCommonSetting: true,
+      value: '#fff',
+    };
+    const style = {
+      textColor: styleValue,
+      backgroundColor: styleValue,
+      edgeColor: styleValue,
+    };
+
+    let tree: Tree;
+    beforeEach(() => {
+      tree = {
+        id: 1,
+        text: 'A',
+        layout,
+        style,
+        children: [
+          {
+            id: 2,
+            text: 'B',
+            layout,
+            style,
+            children: [
+              {
+                id: 4,
+                text: 'Child of B',
+                layout,
+                style,
+                children: [],
+              },
+            ],
+          },
+          {
+            id: 3,
+            text: 'C',
+            layout,
+            style,
+            children: [],
+          },
+        ],
+      };
+    });
+
+    it('The child of the node with the specified ID rotate', () => {
+      assert.strictEqual(tree.children[0].text, 'B');
+
+      const result = rotateChildren(tree, 1);
+      assert.strictEqual(result.children[0].text, 'C');
+      assert.strictEqual(result.children[0].children.length, 0);
+      assert.strictEqual(result.children[1].children.length, 1);
+      assert.strictEqual(result.children[1].children[0].text, 'Child of B');
+    });
+
+    it('Immutable, so does not change the original tree', () => {
+      const result = rotateChildren(tree, 1);
+      assert.strictEqual(tree.children[0].text, 'B');
+      assert.strictEqual(result.children[0].text, 'C');
+      assert.strictEqual(tree.children[0].children.length, 1);
+      assert.strictEqual(result.children[0].children.length, 0);
+    });
+
+    it('An error occurs if a non-existent node is specified as a target', () => {
+      let isError = false;
+
+      try {
+        rotateChildren(tree, 99);
       } catch {
         isError = true;
       }

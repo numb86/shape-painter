@@ -751,3 +751,28 @@ export const removeNode = (tree: Tree, targetNodeId: number) => {
 
   return nodeArrayWithChild[0] as Tree;
 };
+
+export const rotateChildren = (tree: Tree, targetNodeId: number) => {
+  let isDone = false;
+
+  const clone = generateTree(tree, (originalNode) => originalNode);
+
+  depthFirstSearchForTree(clone, (node) => {
+    if (node.id === targetNodeId) {
+      isDone = true;
+      if (node.children.length < 2) return;
+
+      const firstItem = node.children.shift();
+      if (!firstItem) {
+        throw new Error(`firstItem is undefined`);
+      }
+      (node.children as Tree[]).push(firstItem);
+    }
+  });
+
+  if (!isDone) {
+    throw new Error(`Not found node with id ${targetNodeId}`);
+  }
+
+  return clone;
+};
