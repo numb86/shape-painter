@@ -253,6 +253,7 @@ const TreeContent = ({
                 }}
                 size={{width: node.width, height: node.height}}
                 openNodeEditMenu={openNodeEditMenu}
+                showRotateChildrenButton={node.childNodeCount >= 2}
               />
             );
           })}

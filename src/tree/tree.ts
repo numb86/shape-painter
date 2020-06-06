@@ -43,6 +43,7 @@ export type NodeArrayElement = Omit<Tree, 'children'> & {
   parentNodeId: number | null;
   width: number;
   height: number;
+  childNodeCount: number;
 };
 
 export type NodeArray = NodeArrayElement[];
@@ -635,6 +636,7 @@ export const generateNodeArrayFromTree = (tree: Tree | OptimizedTree) => {
 
   depthFirstSearchForTree(tree, (targetNode, parentNode) => {
     const newNode = deepClone(targetNode);
+    const childNodeCount = newNode.children.length;
     delete newNode.children;
 
     let width = 0;
@@ -649,6 +651,7 @@ export const generateNodeArrayFromTree = (tree: Tree | OptimizedTree) => {
       parentNodeId: parentNode ? parentNode.id : null,
       width,
       height,
+      childNodeCount,
     });
   });
 
