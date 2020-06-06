@@ -10,6 +10,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'babel-jest',
+    '\\.(svg)$': '<rootDir>/__mocks__/fileMock.js',
     '^@src(.*)$': '<rootDir>/$1',
     '^@shared(.*)$': '<rootDir>/shared/$1',
     '^@svg(.*)$': '<rootDir>/svg/$1',
