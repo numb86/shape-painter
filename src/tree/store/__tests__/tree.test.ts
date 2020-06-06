@@ -12,6 +12,7 @@ import {
   editNodeActionCreator,
   addNodeActionCreator,
   removeNodeActionCreator,
+  rotateChildrenActionCreator,
 } from '../tree';
 
 describe('tree', () => {
@@ -116,6 +117,33 @@ describe('tree', () => {
           calculatedComplexTree,
           removeNodeActionCreator(calculatedComplexTree.children[0].id)
         ) !== calculatedComplexTree
+      );
+    });
+  });
+
+  describe('rotateChildren', () => {
+    it('The child of the node with the specified ID rotate', () => {
+      const firstChildText = calculatedSimpleTree.children[0].text;
+      const secondChildText = calculatedSimpleTree.children[1].text;
+
+      const result = tree(
+        calculatedSimpleTree,
+        rotateChildrenActionCreator(calculatedSimpleTree.id)
+      );
+
+      assert.strictEqual(result.children[0].text, secondChildText);
+      assert.strictEqual(
+        result.children[result.children.length - 1].text,
+        firstChildText
+      );
+    });
+
+    it('Returns a state with a different reference than the previous state', () => {
+      assert(
+        tree(
+          calculatedSimpleTree,
+          rotateChildrenActionCreator(calculatedSimpleTree.id)
+        ) !== calculatedSimpleTree
       );
     });
   });
