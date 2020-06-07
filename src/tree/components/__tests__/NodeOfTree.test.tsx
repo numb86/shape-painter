@@ -30,6 +30,7 @@ describe('NodeOfTree', () => {
         height: 50,
       },
       openNodeEditMenu: jest.fn(),
+      showRotateChildrenButton: false,
     };
   });
 

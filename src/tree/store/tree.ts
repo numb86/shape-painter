@@ -2,6 +2,7 @@ import {
   editContentOfSpecifiedNode,
   addNode,
   removeNode,
+  rotateChildren,
   Tree,
   UserEditablePropertyOfTree,
 } from '@tree/tree.ts';
@@ -16,6 +17,7 @@ const INITIAL_EDGE_COLOR = '#000';
 const EDIT_NODE = 'EDIT_NODE';
 const ADD_NODE = 'ADD_NODE';
 const REMOVE_NODE = 'REMOVE_NODE';
+const ROTATE_CHILDREN = 'ROTATE_CHILDREN';
 
 type EditNodeAction = {
   type: typeof EDIT_NODE;
@@ -40,6 +42,13 @@ type RemoveNodeAction = {
   };
 };
 
+type RotateChildrenAction = {
+  type: typeof ROTATE_CHILDREN;
+  payload: {
+    targetNodeId: number;
+  };
+};
+
 type OverWriteTreeAction = {
   type: typeof OVER_WRITE_ACTION_TYPE;
   payload: {
@@ -55,6 +64,7 @@ type TreeActions =
   | EditNodeAction
   | AddNodeAction
   | RemoveNodeAction
+  | RotateChildrenAction
   | OverWriteTreeAction
   | InitializeAction;
 
@@ -99,6 +109,15 @@ export const removeNodeActionCreator = (
   targetNodeId: number
 ): RemoveNodeAction => ({
   type: REMOVE_NODE,
+  payload: {
+    targetNodeId,
+  },
+});
+
+export const rotateChildrenActionCreator = (
+  targetNodeId: number
+): RotateChildrenAction => ({
+  type: ROTATE_CHILDREN,
   payload: {
     targetNodeId,
   },
@@ -189,6 +208,9 @@ export const tree = (state = initialState, action: TreeActions): Tree => {
     }
     case REMOVE_NODE: {
       return removeNode(state, action.payload.targetNodeId);
+    }
+    case ROTATE_CHILDREN: {
+      return rotateChildren(state, action.payload.targetNodeId);
     }
     case OVER_WRITE_ACTION_TYPE: {
       return {...action.payload.tree};

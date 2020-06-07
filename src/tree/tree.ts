@@ -43,6 +43,7 @@ export type NodeArrayElement = Omit<Tree, 'children'> & {
   parentNodeId: number | null;
   width: number;
   height: number;
+  childNodeCount: number;
 };
 
 export type NodeArray = NodeArrayElement[];
@@ -635,6 +636,7 @@ export const generateNodeArrayFromTree = (tree: Tree | OptimizedTree) => {
 
   depthFirstSearchForTree(tree, (targetNode, parentNode) => {
     const newNode = deepClone(targetNode);
+    const childNodeCount = newNode.children.length;
     delete newNode.children;
 
     let width = 0;
@@ -649,6 +651,7 @@ export const generateNodeArrayFromTree = (tree: Tree | OptimizedTree) => {
       parentNodeId: parentNode ? parentNode.id : null,
       width,
       height,
+      childNodeCount,
     });
   });
 
@@ -750,4 +753,29 @@ export const removeNode = (tree: Tree, targetNodeId: number) => {
   }
 
   return nodeArrayWithChild[0] as Tree;
+};
+
+export const rotateChildren = (tree: Tree, targetNodeId: number) => {
+  let isDone = false;
+
+  const clone = generateTree(tree, (originalNode) => originalNode);
+
+  depthFirstSearchForTree(clone, (node) => {
+    if (node.id === targetNodeId) {
+      isDone = true;
+      if (node.children.length < 2) return;
+
+      const firstItem = node.children.shift();
+      if (!firstItem) {
+        throw new Error(`firstItem is undefined`);
+      }
+      (node.children as Tree[]).push(firstItem);
+    }
+  });
+
+  if (!isDone) {
+    throw new Error(`Not found node with id ${targetNodeId}`);
+  }
+
+  return clone;
 };

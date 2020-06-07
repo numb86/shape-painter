@@ -3,13 +3,22 @@ import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import styled from 'styled-components';
 
-import {addNodeActionCreator, removeNodeActionCreator} from '@tree/store/tree';
+import {
+  addNodeActionCreator,
+  removeNodeActionCreator,
+  rotateChildrenActionCreator,
+} from '@tree/store/tree';
+
+import RotateIcon from '@svg/rotate.svg';
 
 type OpenNodeEditMenu = (targetNodeId: number) => void;
 type AddChild = (
   event: React.MouseEvent<HTMLButtonElement, MouseEvent>
 ) => void;
 type RemoveNode = (
+  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+) => void;
+type RotateChildren = (
   event: React.MouseEvent<HTMLButtonElement, MouseEvent>
 ) => void;
 
@@ -32,6 +41,7 @@ type Props = {
   };
   size: Size;
   openNodeEditMenu: OpenNodeEditMenu;
+  showRotateChildrenButton: boolean;
 };
 
 export const NodeOfTree = ({
@@ -42,13 +52,20 @@ export const NodeOfTree = ({
   layout,
   size,
   openNodeEditMenu,
+  showRotateChildrenButton,
 }: Props) => {
   const dispatch = useDispatch();
+
   const addChild = useCallback(() => {
     dispatch(addNodeActionCreator(id));
   }, [dispatch, id]);
+
   const removeNode = useCallback(() => {
     dispatch(removeNodeActionCreator(id));
+  }, [dispatch, id]);
+
+  const rotateChildren = useCallback(() => {
+    dispatch(rotateChildrenActionCreator(id));
   }, [dispatch, id]);
 
   const onNodeClick = useCallback(() => {
@@ -65,6 +82,12 @@ export const NodeOfTree = ({
         onClick={onNodeClick}
       >
         <AddChildButton nodeWidth={size.width} onClick={addChild} />
+        {showRotateChildrenButton && (
+          <RotateChildrenButton
+            nodeWidth={size.width}
+            onClick={rotateChildren}
+          />
+        )}
         {!isRootNode && <RemoveNodeButton onClick={removeNode} />}
         {text}
       </Node>
@@ -103,6 +126,33 @@ const RemoveNodeButton = ({onClick}: {onClick: RemoveNode}) => (
   >
     &times;
   </RemoveNodeButtonStyledComponent>
+);
+
+const RotateChildrenButton = ({
+  nodeWidth,
+  onClick,
+}: {
+  nodeWidth: number;
+  onClick: RotateChildren;
+}) => (
+  <RotateChildButtonStyledComponent
+    type="button"
+    nodeWidth={nodeWidth}
+    onClick={(e) => {
+      e.stopPropagation();
+      onClick(e);
+    }}
+  >
+    <RotateIcon
+      style={{
+        position: 'absolute',
+        top: '3px',
+        left: '3px',
+        width: '24px',
+        height: '24px',
+      }}
+    />
+  </RotateChildButtonStyledComponent>
 );
 
 const AddChildButtonStyledComponent = styled.button<{nodeWidth: number}>`
@@ -145,6 +195,26 @@ const RemoveNodeButtonStyledComponent = styled.button`
   cursor: pointer;
 `;
 
+const RotateChildButtonStyledComponent = styled.button<{nodeWidth: number}>`
+  &:hover {
+    background-color: #0061cc;
+  }
+  display: none;
+  position: absolute;
+  bottom: -44px;
+  left: ${(props) => Math.floor(props.nodeWidth / 2) - 15}px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 23px;
+  line-height: 27px;
+  text-align: center;
+  background-color: #888;
+  border: none;
+  cursor: pointer;
+`;
+
 const Node = styled.div<
   Pick<Props, 'style' | 'layout'> & {
     onClick: OpenNodeEditMenu;
@@ -174,6 +244,9 @@ const Node = styled.div<
     display: block;
   }
   &:hover ${RemoveNodeButtonStyledComponent} {
+    display: block;
+  }
+  &:hover ${RotateChildButtonStyledComponent} {
     display: block;
   }
 `;
