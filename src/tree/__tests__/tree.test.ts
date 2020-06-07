@@ -547,7 +547,7 @@ describe('tree', () => {
     it('The child of the node with the specified ID rotate', () => {
       assert.strictEqual(tree.children[0].text, 'B');
 
-      const result = rotateChildren(tree, 1);
+      const result = rotateChildren(tree, tree.id);
       assert.strictEqual(result.children[0].text, 'C');
       assert.strictEqual(result.children[0].children.length, 0);
       assert.strictEqual(result.children[1].children.length, 1);
@@ -555,7 +555,7 @@ describe('tree', () => {
     });
 
     it('Immutable, so does not change the original tree', () => {
-      const result = rotateChildren(tree, 1);
+      const result = rotateChildren(tree, tree.id);
       assert.strictEqual(tree.children[0].text, 'B');
       assert.strictEqual(result.children[0].text, 'C');
       assert.strictEqual(tree.children[0].children.length, 1);
