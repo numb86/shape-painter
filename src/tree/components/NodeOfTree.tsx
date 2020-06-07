@@ -18,6 +18,9 @@ type AddChild = (
 type RemoveNode = (
   event: React.MouseEvent<HTMLButtonElement, MouseEvent>
 ) => void;
+type RotateChildren = (
+  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+) => void;
 
 type Size = {
   width: number;
@@ -130,7 +133,7 @@ const RotateChildrenButton = ({
   onClick,
 }: {
   nodeWidth: number;
-  onClick: any;
+  onClick: RotateChildren;
 }) => (
   <RotateChildButtonStyledComponent
     type="button"
