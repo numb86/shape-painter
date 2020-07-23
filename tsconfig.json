@@ -5,9 +5,9 @@
     "noEmit": true,
     "strict": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "skipLibCheck": true,
+    "skipLibCheck": true, // Cannot be deleted due to X support @types/styled-components ref https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015
     "baseUrl": "./src",
     "paths": {
       "@src/*": ["./*"],
