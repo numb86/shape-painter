@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "core-js": "^3.6.5",
-    "dialog-polyfill": "^0.5.1",
+    "dialog-polyfill": "^0.5.3",
     "history": "^5.0.0",
     "html2canvas": "^1.0.0-rc.5",
     "react": "^16.13.1",
