@@ -34,8 +34,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-undo": "^1.0.1",
-    "styled-components": "^5.1.1",
-    "whatwg-fetch": "^3.0.0"
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.1",
