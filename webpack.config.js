@@ -15,6 +15,7 @@ module.exports = (env, argv) => {
       filename: './index.html',
       template: './template.ts',
       chunks: ['vendors', 'index'],
+      scriptLoading: 'defer',
     }),
     new webpack.EnvironmentPlugin(['NODE_ENV']),
   ];
