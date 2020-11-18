@@ -54,9 +54,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
-      - name: Deploy to S3
+      - name: Deploy HTML to S3
         run: |
-          aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+          aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME }}  --exclude "*" --include "*.html" --include "*/*.html" --cache-control "max-age=no-store" --delete
+
+      - name: Deploy Sub Resource to S3
+        run: |
+          aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --exclude "*.html" --exclude "*/*.html" --cache-control "max-age=7776000" --delete
 
       - name:  Cache Clear
         run: |
