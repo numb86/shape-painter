@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
 
-import {Top} from '@src/components/Top';
-import {Tree} from '@tree/components/Tree';
-import {ClientServer} from '@clientServer/components/ClientServer';
-
 import {LAYOUT, SHAPES} from '@src/constants';
+
+const Top = React.lazy(() => import('@src/components/Top'));
+const Tree = React.lazy(() => import('@tree/components/Tree'));
+const ClientServer = React.lazy(() =>
+  import('@clientServer/components/ClientServer')
+);
 
 export const App = () => {
   return (
@@ -14,17 +16,19 @@ export const App = () => {
       <GlobalStyle />
       <Container>
         <BrowserRouter>
-          <Header>
-            <Link to="/">Shape Painter</Link>
-          </Header>
-          <Routes>
-            <Route path="/" element={<Top />} />
-            <Route path={SHAPES.tree.url} element={<Tree />} />
-            <Route
-              path={SHAPES['client-server'].url}
-              element={<ClientServer />}
-            />
-          </Routes>
+          <Suspense fallback="loading...">
+            <Header>
+              <Link to="/">Shape Painter</Link>
+            </Header>
+            <Routes>
+              <Route path="/" element={<Top />} />
+              <Route path={SHAPES.tree.url} element={<Tree />} />
+              <Route
+                path={SHAPES['client-server'].url}
+                element={<ClientServer />}
+              />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </Container>
     </>
