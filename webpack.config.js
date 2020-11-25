@@ -43,14 +43,14 @@ module.exports = (env, argv) => {
   }
 
   return {
-    devtool: isProduction ? '' : 'source-map',
+    devtool: isProduction ? false : 'eval-source-map',
     context: path.resolve(__dirname, SOURCE_DIR_NAME),
     entry: {
       index: './index.tsx',
     },
     output: {
       path: path.resolve(__dirname, OUTPUT_DIR_NAME),
-      filename: isProduction ? '[name].[contentHash].js' : '[name].js',
+      filename: isProduction ? '[name].[contenthash].js' : '[name].js',
       publicPath: '/',
     },
     module: {

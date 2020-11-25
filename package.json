@@ -13,7 +13,7 @@
     "yarn": ">=1.22.4"
   },
   "scripts": {
-    "start": "yarn && NODE_ENV=development webpack-dev-server --mode=development",
+    "start": "yarn && NODE_ENV=development webpack serve --mode=development",
     "build": "yarn && NODE_ENV=production webpack --mode=production",
     "type-check": "yarn tsc",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
