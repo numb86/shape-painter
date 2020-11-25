@@ -1,5 +1,3 @@
-import html2canvas from 'html2canvas';
-
 import {
   DOWNLOAD_TARGET_ELEMENT_ID,
   DISPLAY_AREA_ELEMENT_ID,
@@ -63,19 +61,22 @@ export const downloadPngFile = () => {
 
   calculateSizeAndPositionOfTree(downloadTargetElement, displayAreaElement);
 
-  html2canvas(downloadTargetElement, {
-    onclone: onClone,
-    height,
-    width,
-    x: canvasXOffset,
-  }).then((canvas) => {
-    canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      const elem = document.createElement('a');
-      elem.href = url;
-      elem.download = `${new Date().toISOString()}.png`;
-      elem.click();
-      URL.revokeObjectURL(url);
+  import('html2canvas').then((res) => {
+    const html2canvas = res.default;
+    html2canvas(/* webpackChunkName: 'html2canvas' */ downloadTargetElement, {
+      onclone: onClone,
+      height,
+      width,
+      x: canvasXOffset,
+    }).then((canvas) => {
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const elem = document.createElement('a');
+        elem.href = url;
+        elem.download = `${new Date().toISOString()}.png`;
+        elem.click();
+        URL.revokeObjectURL(url);
+      });
     });
   });
 };

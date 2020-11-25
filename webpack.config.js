@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
@@ -20,26 +19,8 @@ module.exports = (env, argv) => {
     new webpack.EnvironmentPlugin(['NODE_ENV']),
   ];
 
-  const splitChunks = {
-    cacheGroups: {
-      commons: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendors',
-        chunks: 'all',
-      },
-    },
-  };
-  const minimizer = [new TerserPlugin()];
-  let optimization = {
-    splitChunks,
-  };
-
   if (isProduction) {
     plugins.push(new CleanWebpackPlugin());
-    optimization = {
-      splitChunks,
-      minimizer,
-    };
   }
 
   return {
@@ -80,7 +61,12 @@ module.exports = (env, argv) => {
       },
     },
     plugins,
-    optimization,
+    optimization: {
+      chunkIds: 'named',
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     devServer: {
       contentBase: path.resolve(__dirname, OUTPUT_DIR_NAME),
       hot: true,
