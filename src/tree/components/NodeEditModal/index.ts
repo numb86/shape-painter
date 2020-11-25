@@ -1,1 +1,1 @@
-export {NodeEditModal} from './NodeEditModal';
+export {NodeEditModal as default} from './NodeEditModal';
