@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import styled from 'styled-components';
 
-import {ColorPicker} from '@shared/components/ColorPicker';
+const ColorPicker = React.lazy(() => import('@shared/components/ColorPicker'));
 
 type Props = {
   label: string;
@@ -39,11 +39,13 @@ export const ColorSelect = React.memo(
           onChange={onClickCheckBox}
         />
         <Value>
-          <ColorPicker
-            color={color}
-            setColor={setColor}
-            disable={useCommonValue}
-          />
+          <Suspense fallback="loading...">
+            <ColorPicker
+              color={color}
+              setColor={setColor}
+              disable={useCommonValue}
+            />
+          </Suspense>
         </Value>
       </Container>
     );

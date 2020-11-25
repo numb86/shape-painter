@@ -6,7 +6,7 @@ import {render, fireEvent, screen} from '@testing-library/react';
 import 'jest-styled-components';
 import assert from 'power-assert';
 
-import {ColorPicker} from '../ColorPicker';
+import ColorPicker from '../ColorPicker';
 
 describe('ColorPicker', () => {
   it('Swatch background color is props.color', () => {

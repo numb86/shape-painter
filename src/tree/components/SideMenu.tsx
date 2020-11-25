@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {Suspense, useState, useEffect, useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import styled from 'styled-components';
 
@@ -6,7 +6,8 @@ import {useSelector} from '@tree/store/index';
 import {updateCommonSettingValue} from '@tree/store/commonSetting';
 
 import {SideMenuContainer} from '@src/shared/components/SideMenuContainer/index';
-import {ColorPicker} from '@src/shared/components/ColorPicker';
+
+const ColorPicker = React.lazy(() => import('@shared/components/ColorPicker'));
 
 type EditCommonValueProps = {
   label: string;
@@ -25,12 +26,14 @@ const EditCommonValue = ({
     <EditCommonValueStyled>
       <div>{label}</div>
       <ColorPickerStyled>
-        <ColorPicker
-          color={color}
-          setColor={setColor}
-          disable={false}
-          closePickerCallback={updateColor}
-        />
+        <Suspense fallback="loading...">
+          <ColorPicker
+            color={color}
+            setColor={setColor}
+            disable={false}
+            closePickerCallback={updateColor}
+          />
+        </Suspense>
       </ColorPickerStyled>
     </EditCommonValueStyled>
   );
