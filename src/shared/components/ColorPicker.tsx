@@ -52,7 +52,7 @@ const Popover = ({
   );
 };
 
-export const ColorPicker = ({
+const ColorPicker = ({
   color,
   setColor,
   disable,
@@ -81,6 +81,8 @@ export const ColorPicker = ({
     </>
   );
 };
+
+export default ColorPicker;
 
 const Swatch = styled.div<{color: string; disable: boolean}>`
   width: 36px;
