@@ -1,6 +1,5 @@
 import React, {useEffect, useCallback} from 'react';
 import styled from 'styled-components';
-import dialogPolyfill from 'dialog-polyfill';
 
 type Props = {
   modalRef: React.MutableRefObject<HTMLDialogElement | null>;
@@ -26,7 +25,13 @@ export const ModalTemplate: React.FC<Props> = ({
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
       if (modalRef.current && !modalRef.current.showModal) {
-        dialogPolyfill.registerDialog(modalRef.current);
+        import('dialog-polyfill').then((res) => {
+          /* eslint-disable @typescript-eslint/no-non-null-assertion */
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          res.default.registerDialog(modalRef.current!);
+          /* eslint-enable @typescript-eslint/no-non-null-assertion */
+        });
       }
     }
   }, [modalRef]);

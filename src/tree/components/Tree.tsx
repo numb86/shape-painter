@@ -1,4 +1,11 @@
-import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+  Suspense,
+} from 'react';
 import styled from 'styled-components';
 
 import {
@@ -25,11 +32,16 @@ import {Main} from '@shared/components/Main';
 import {ElementForCollectNodeWidth} from '@tree/components/ElementForCollectNodeWidth';
 import {NodeOfTree} from '@tree/components/NodeOfTree';
 import {EdgeOfTree} from '@tree/components/EdgeOfTree';
-import {NodeEditModal} from '@tree/components/NodeEditModal/index';
 import {useModal} from '@shared/customHooks/useModal';
 import {useReplaceReducer} from '@shared/customHooks/useReplaceReducer';
 import {useStateDisappearWarning} from '@shared/customHooks/useStateDisappearWarning';
 import {NodeSize} from '@tree/store/nodeSize';
+
+const NodeEditModal = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'NodeEditModal' */ '@tree/components/NodeEditModal/index'
+  )
+);
 
 const PADDING_FROM_SIDE_MENU = 30;
 
@@ -261,13 +273,15 @@ const TreeContent = ({
           })}
         </DisplayArea>
       </Container>
-      <NodeEditModal
-        modalRef={modalRef}
-        closeModal={closeModal}
-        targetNodeId={selectedNodeId}
-        currentState={userEditablePropertyOfTargetNode}
-        targetNodeIsRoot={targetNodeIsRoot}
-      />
+      <Suspense fallback="loading...">
+        <NodeEditModal
+          modalRef={modalRef}
+          closeModal={closeModal}
+          targetNodeId={selectedNodeId}
+          currentState={userEditablePropertyOfTargetNode}
+          targetNodeIsRoot={targetNodeIsRoot}
+        />
+      </Suspense>
     </>
   );
 };
