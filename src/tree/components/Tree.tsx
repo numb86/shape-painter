@@ -39,7 +39,7 @@ type Props = {
   treeMainRef: React.MutableRefObject<HTMLElement | null>;
 };
 
-const Tree = () => {
+export const Tree = () => {
   useEffect(() => {
     window.document.title = 'Tree - Shape Painter';
     if (process.env.NODE_ENV === 'production') {
@@ -73,8 +73,6 @@ const Tree = () => {
     </>
   );
 };
-
-export default Tree;
 
 const TreePrepare = ({treeMainRef}: Props) => {
   const tree = useSelector((s) => s.history.present.tree);

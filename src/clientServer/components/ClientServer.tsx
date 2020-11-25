@@ -6,7 +6,7 @@ import {Main} from '@shared/components/Main';
 import {useSelector} from '@clientServer/store/index';
 import {useReplaceReducer} from '@shared/customHooks/useReplaceReducer';
 
-const ClientServer = () => {
+export const ClientServer = () => {
   const state = useSelector((s) => s);
   // TODO: Write the correct logic after implementing state
   const hasCorrectReducer = useCallback(() => {
@@ -26,5 +26,3 @@ const ClientServer = () => {
     </>
   );
 };
-
-export default ClientServer;

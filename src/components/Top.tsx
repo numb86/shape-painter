@@ -7,7 +7,7 @@ import {SHAPES, GA_MEASUREMENT_ID} from '@src/constants';
 import TreeIcon from '@svg/tree-icon.svg';
 
 // Uncomment, when implementing ClientServer
-const Top = () => {
+export const Top = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,8 +88,6 @@ const Top = () => {
     </Container>
   );
 };
-
-export default Top;
 
 // const CONTAINER_WIDTH = 800;
 const CONTAINER_WIDTH = 600;
