@@ -19,24 +19,8 @@ module.exports = (env, argv) => {
     new webpack.EnvironmentPlugin(['NODE_ENV']),
   ];
 
-  const splitChunks = {
-    cacheGroups: {
-      commons: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendors',
-        chunks: 'all',
-      },
-    },
-  };
-  let optimization = {
-    splitChunks,
-  };
-
   if (isProduction) {
     plugins.push(new CleanWebpackPlugin());
-    optimization = {
-      splitChunks,
-    };
   }
 
   return {
@@ -77,7 +61,12 @@ module.exports = (env, argv) => {
       },
     },
     plugins,
-    optimization,
+    optimization: {
+      chunkIds: 'named',
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     devServer: {
       contentBase: path.resolve(__dirname, OUTPUT_DIR_NAME),
       hot: true,
