@@ -61,9 +61,9 @@ export const downloadPngFile = () => {
 
   calculateSizeAndPositionOfTree(downloadTargetElement, displayAreaElement);
 
-  import('html2canvas').then((res) => {
+  import(/* webpackChunkName: 'html2canvas' */ 'html2canvas').then((res) => {
     const html2canvas = res.default;
-    html2canvas(/* webpackChunkName: 'html2canvas' */ downloadTargetElement, {
+    html2canvas(downloadTargetElement, {
       onclone: onClone,
       height,
       width,
