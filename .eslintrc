@@ -10,8 +10,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "react-hooks",
-    "prettier"
+    "react-hooks"
   ],
   "env": {
     "browser": true,
@@ -45,12 +44,7 @@
       }
    ],
    "import/prefer-default-export": "off",
-   "react/jsx-props-no-spreading": "off",
-   "prettier/prettier": ["error", {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "bracketSpacing": false
-  }]
+   "react/jsx-props-no-spreading": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2018

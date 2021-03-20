@@ -17,8 +17,8 @@
     "build": "yarn && NODE_ENV=production webpack --mode=production",
     "bundle-analyze": "yarn && NODE_ENV=production webpack --mode=production --analyze",
     "type-check": "yarn tsc",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix src/",
+    "lint": "eslint './src/**/*.{ts,tsx,js,jsx}'",
+    "lint:fix": "eslint --fix './src/**/*.{ts,tsx,js,jsx}' && prettier --write './src/**/*.{ts,tsx,js,jsx}'",
     "test": "jest --config=src/jest.config.js"
   },
   "dependencies": {
